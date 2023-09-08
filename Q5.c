@@ -2,10 +2,10 @@
 #include <stdbool.h>
 #include <string.h>
 
-struct Stack{
+typedef struct Stack{
     char items[100];
     int top;
-};
+}Stack;
 
 void initializeStack(struct Stack * stack){
     stack -> top = -1;

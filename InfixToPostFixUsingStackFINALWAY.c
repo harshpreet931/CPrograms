@@ -1,8 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#define MAX_SIZE 100
+#define MAX 100
 
 int isOperator(char ch) {
     return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
@@ -27,7 +25,7 @@ int alphaNum(char ch){
 }
 
 void infixToPostfix(char infix[], char postfix[]) {
-    char stack[MAX_SIZE];
+    char stack[MAX];
     int top = -1;
     int i, j = 0;
 
@@ -36,14 +34,16 @@ void infixToPostfix(char infix[], char postfix[]) {
             postfix[j++] = infix[i];
         } else if (infix[i] == '(') {
             stack[++top] = infix[i];
-        } else if (infix[i] == ')') {
+        } 
+        else if (infix[i] == ')') {
             while (top >= 0 && stack[top] != '(') {
                 postfix[j++] = stack[top--];
             }
             if (top >= 0 && stack[top] == '(') {
                 top--;
             }
-        } else if (isOperator(infix[i])) {
+        } 
+        else if (isOperator(infix[i])) {
             while (top >= 0 && getPrecedence(stack[top]) >= getPrecedence(infix[i])) {
                 postfix[j++] = stack[top--];
             }
@@ -59,7 +59,7 @@ void infixToPostfix(char infix[], char postfix[]) {
 }
 
 int evaluatePostfix(char postfix[]){
-    int stack[MAX_SIZE];
+    int stack[MAX];
     int top = -1;
     int i,operand1,operand2,result;
 
@@ -76,7 +76,7 @@ int evaluatePostfix(char postfix[]){
                     result = operand1 + operand2;
                     break;
                 case '-':
-                    result = operand1 + operand2;
+                    result = operand1 - operand2;
                     break;
                 case '*':
                     result = operand1 * operand2;
@@ -98,8 +98,8 @@ int evaluatePostfix(char postfix[]){
 }
 
 int main() {
-    char postfix[MAX_SIZE];
-    char infix[MAX_SIZE] = "2+3^(4-(1+2)^2+((3-2)*4)+3)";
+    char postfix[MAX];
+    char infix[MAX] = "2+3^(4-(1+2)^2+((3-2)*4)+3)";
 
     infixToPostfix(infix, postfix);
 
